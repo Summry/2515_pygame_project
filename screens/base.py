@@ -11,6 +11,7 @@ class BaseScreen:
         self.window = window
         self.next_screen = False
         self.background = pygame.transform.scale(pygame.image.load("images/snow_forest.png"), (960, 540))
+        self.terrain = pygame.transform.scale(pygame.image.load("images/terrain.png"), (1000, 240))
 
     def run(self):
 
@@ -23,9 +24,9 @@ class BaseScreen:
 
             # Draw the snow background (same for every screen)
             self.window.blit(self.background, (0, 0))
+            self.window.blit(self.terrain, (-15, 400))
             self.update()
             self.draw()
-            pygame.display.update()
 
             # Event loop
             for event in pygame.event.get():
@@ -38,6 +39,9 @@ class BaseScreen:
                     self.next_screen = False
 
                 self.manage_event(event)
+
+            # Update the entire display
+            pygame.display.update()
 
     @property
     def rect(self):
