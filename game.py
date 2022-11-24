@@ -48,6 +48,11 @@ class Game:
             current_screen = screen.next_screen
     
     def play_music(self, screen):
+        """Method that plays unique music per screen
+
+        Args:
+            screen (surface): screen that is currently running
+        """
         if (screen):
             pygame.mixer.music.load(f"audio/{screen}.mp3")
             if (screen == "game"):
