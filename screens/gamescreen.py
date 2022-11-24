@@ -9,29 +9,43 @@ class GameScreen(BaseScreen):
         super().__init__(*args, **kwargs)
 
         # Create the player
-        self.player = Player(480, 350, 0.2)
+        self.player = Player(480, 350, 0.2, speed=5)
+        self.move_left = False
+        self.move_right = False
 
         # Create a zombie
-        # self.zombie = Zombie(limits=self.rect)
-
-
-
+        # self.zombie = Zombie(300, 300, speed=0)
 
         # Put all sprites in the group
         self.sprites = pygame.sprite.Group()
         self.sprites.add(self.player)
-        # self.sprites.add(self.zombie)
 
     def draw(self):
+        self.player.update_animation()
         self.player.draw(self.window)
+        self.player.move(self.move_left, self.move_right)
 
-    # def update(self):
-    #     keys = pygame.key.get_pressed()
-    #     if keys[pygame.K_LEFT]:
-    #         self.player.move("left")
+        # self.zombie.draw(self.window)
 
-    #     if keys[pygame.K_RIGHT]:
-    #         self.player.move("right")
+    def update(self):
+        self.sprites.update()
+        
+    def manage_event(self, event):
+        if event.type == pygame.KEYDOWN:
+            # If player presses left or right arrows
+            # if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+            if event.key == pygame.K_LEFT:
+                self.move_left = True
+            if event.key == pygame.K_RIGHT:
+                self.move_right = True
+            if self.move_left or self.move_right:
+                self.player.update_action(1) # Change to run
 
-    #     self.sprites.update()
-    #     collided = self.
+        if event.type == pygame.KEYUP:
+            # If player presses left or right arrows
+            # if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+            if event.key == pygame.K_LEFT:
+                self.move_left = False
+            if event.key == pygame.K_RIGHT:
+                self.move_right = False
+            self.player.update_action(0) # Change to stand

@@ -14,6 +14,8 @@ class BaseScreen:
         # self.terrain = pygame.transform.scale(pygame.image.load("images/terrain.png"), (1000, 240))
 
     def run(self):
+        """method that runs the screen for all screens
+        """
 
         clock = pygame.time.Clock()
         self.running = True
