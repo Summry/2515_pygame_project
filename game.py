@@ -1,5 +1,6 @@
 import pygame
-from screens import WelcomeScreen, GameScreen
+pygame.init()
+from screens import WelcomeScreen, GameScreen, GameOverScreen
 
 
 class Game:
@@ -11,20 +12,24 @@ class Game:
 
     def run(self):
         """Main method, manages interaction between screens"""
-        pygame.display.set_caption("Zombie Shooter")
+        pygame.display.set_caption("Caustic: The Zombie Shooter")
 
 
         # These are the available screens
         screens = {
             "welcome": WelcomeScreen,
             "game": GameScreen,
-            # "game_over": GameOverScreen,
+            "game_over": GameOverScreen,
         }
 
         # Start the loop
         running = True
         current_screen = "welcome"
         while running:
+
+            # Play music
+            self.play_music(current_screen)
+
             # Obtain the screen class
             screen_class = screens.get(current_screen)
             if not screen_class:
@@ -41,8 +46,17 @@ class Game:
                 running = False
             # Switch to the next screen
             current_screen = screen.next_screen
+    
+    def play_music(self, screen):
+        if (screen):
+            pygame.mixer.music.load(f"audio/{screen}.mp3")
+            if (screen == "game"):
+                pygame.mixer.music.set_volume(0.08)
+            pygame.mixer.music.play(-1)
+        else:
+            pygame.mixer.music.stop()
 
 
 if __name__ == "__main__":
-    tilebreaker = Game()
-    tilebreaker.run()
+    zombieshooter = Game()
+    zombieshooter.run()

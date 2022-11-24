@@ -1,7 +1,18 @@
 import pygame
 
+
 class Button:
+    """buttons for welcome and game over screen
+    """
     def __init__(self, image, x, y, scale) -> None:
+        """constructor for buttons
+
+        Args:
+            image (image): image surface
+            x (float): x-position
+            y (float): y-position
+            scale (float): scalor to scale image width and height
+        """
         w = image.get_width()
         h = image.get_height()
 
@@ -12,6 +23,14 @@ class Button:
 
 
     def draw(self, surface):
+        """draw method for buttons
+
+        Args:
+            surface (surface): item surface to be drawn
+
+        Returns:
+            boolean: if button is clicked or not
+        """
         is_clicked = False
         mouse_pos = pygame.mouse.get_pos()
 
