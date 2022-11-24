@@ -1,63 +1,77 @@
 import pygame
+import os
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y, scale=1, speed=0):
         pygame.sprite.Sprite.__init__(self)
+        self.is_alive = True
         self.scale = scale
         self.sprite_animation = []
         self.animation_index = 0
         self.action = 0
         self.update_interval = pygame.time.get_ticks()
-        temp_list = []
+        
+        # Get all images for the player
+        animation_category = ['stand', 'walk', 'jump']
+        for animation in animation_category:
 
-        for i in range(0, 4):
-            image = pygame.image.load(f"images/player/stand/{i}.png").convert_alpha()
-            image = pygame.transform.scale(image, (int(image.get_width() * self.scale), int(image.get_height() * self.scale)))
-            temp_list.append(image)
+            temp_list = []
+            num_of_files = len(os.listdir(f"images/player/{animation}"))
 
-        self.sprite_animation.append(temp_list)
+            for i in range(0, num_of_files):
+                image = pygame.image.load(f"images/player/{animation}/{i}.png").convert_alpha()
+                image = pygame.transform.scale(image, (int(image.get_width() * self.scale), int(image.get_height() * self.scale)))
+                temp_list.append(image)
 
-        temp_list = []
-        for i in range(0, 8):
-            image = pygame.image.load(f"images/player/walk/{i}.png").convert_alpha()
-            image = pygame.transform.scale(image, (int(image.get_width() * self.scale), int(image.get_height() * self.scale)))
-            temp_list.append(image)
-
-        self.sprite_animation.append(temp_list)
+            self.sprite_animation.append(temp_list)
 
         self.image = self.sprite_animation[self.action][self.animation_index]
         self.speed = speed
+        self.jump = False
+        self.in_the_air = True
+        self.y_velocity = 0
         self.direction = 1
         self.flip_image = False
         self.rect = self.image.get_rect()
-        self.x = x
-        self.y = y
         self.rect.center = (x, y)
 
     def check_limits(self):
         """Make the object stay within the defined limits"""
-        if not self.x or not self.y:
-            return
+        pass
 
-        if self.rect.x < self.limits.left:
-            self.rect.x = self.limits.left
-
-        if self.rect.x + self.rect.width > self.limits.right:
-            self.rect.x = self.limits.right - self.rect.width
-
-    def move(self, move_left, move_right):
+    def move(self, move_left, move_right, gravity=1):
         x_to_change = 0
         y_to_change = 0
 
+        # Move left
         if move_left:
             x_to_change = -self.speed
             self.flip_image = True
             self.direction = -1
+
+        # Move right
         if move_right:
             x_to_change = self.speed
             self.flip_image = False
             self.direction = 1
 
+        # Jump
+        if self.jump == True and self.in_the_air == False:
+            self.y_velocity = -17
+            self.jump = False
+            self.in_the_air = True
+
+        # Gravity
+        self.y_velocity += gravity
+        if self.y_velocity > 10:
+            self.y_velocity = 10
+        y_to_change += self.y_velocity
+
+        # Check for collision from the ground
+        if self.rect.bottom + self.y_velocity > 400:
+            y_to_change = 400 - self.rect.bottom
+            self.in_the_air = False
+        
         self.rect.x += x_to_change
         self.rect.y += y_to_change
 

@@ -10,7 +10,6 @@ class WelcomeScreen(BaseScreen):
         BaseScreen (Screen): base screen of the game
     """
     def __init__(self, *args, **kwargs):
-        """constructor"""
         super().__init__(*args, **kwargs)
         self.sprites = pygame.sprite.Group()
         self.start = Button(pygame.image.load("images/red_start.jpg"), 700, 170, 0.3)
