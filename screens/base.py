@@ -8,7 +8,6 @@ class BaseScreen:
         Args:
             window (window): Window to be display
         """
-        
         self.window = window
         self.next_screen = False
         self.background = pygame.transform.scale(pygame.image.load("images/snow_forest.png"), (960, 540))
@@ -21,6 +20,8 @@ class BaseScreen:
         while self.running:
             # Clock ticks at 60 FPS
             clock.tick(60)
+
+            # Draw the snow background (same for every screen)
             self.window.blit(self.background, (0, 0))
             self.update()
             self.draw()
