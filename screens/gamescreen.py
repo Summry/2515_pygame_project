@@ -3,6 +3,7 @@ import random
 from .base import BaseScreen
 from components.player import Player
 from components.zombie import Zombie
+from components.bullet import Bullet
 
 class GameScreen(BaseScreen):
     def __init__(self, *args, **kwargs) -> None:
@@ -13,18 +14,24 @@ class GameScreen(BaseScreen):
         self.move_left = False
         self.move_right = False
         self.gravity = 0.75
+        self.shoot = False
 
         # Create a zombie
         # self.zombie = Zombie(300, 300, speed=0)
 
         # Put all sprites in the group
-        self.sprites = pygame.sprite.Group()
-        self.sprites.add(self.player)
+        self.player_sprite = pygame.sprite.Group()
+        self.player_sprite.add(self.player)
 
     def draw(self):
-        self.player.update_animation()
+        # self.bullet_group.draw(self.window)
+
+        self.player.update()
 
         if self.player.is_alive:
+            # Shoot bullets
+            if self.shoot:
+                self.player.shoot()
             if self.player.in_the_air:
                 # Jump animation
                 self.player.update_action(2)
@@ -40,7 +47,7 @@ class GameScreen(BaseScreen):
         # self.zombie.draw(self.window)
 
     def update(self):
-        self.sprites.update()
+        self.player_sprite.update()
         
     def manage_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -49,6 +56,8 @@ class GameScreen(BaseScreen):
                 self.move_left = True
             if event.key == pygame.K_RIGHT:
                 self.move_right = True
+            if event.key == pygame.K_SPACE:
+                self.shoot = True
             if event.key == pygame.K_UP and self.player.is_alive:
                 self.player.jump = True
     
@@ -59,3 +68,5 @@ class GameScreen(BaseScreen):
                 self.move_left = False
             if event.key == pygame.K_RIGHT:
                 self.move_right = False
+            if event.key == pygame.K_SPACE:
+                self.shoot = False
