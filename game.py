@@ -56,7 +56,7 @@ class Game:
         if (screen):
             pygame.mixer.music.load(f"audio/{screen}.mp3")
             if (screen == "game"):
-                pygame.mixer.music.set_volume(0.08)
+                pygame.mixer.music.set_volume(0)
             pygame.mixer.music.play(-1)
         else:
             pygame.mixer.music.stop()
