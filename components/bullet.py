@@ -20,6 +20,3 @@ class Bullet(pygame.sprite.Sprite):
         # Delete bullets that go off screen
         if self.rect.right < 0 or self.rect.left > 960:
             self.kill()
-        
-        # Collision checking
-        # if pygame.sprite.spritecollide(player):

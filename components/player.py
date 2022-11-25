@@ -27,13 +27,14 @@ class Player(pygame.sprite.Sprite):
             self.sprite_animation.append(temp_list)
 
         self.speed = speed
+        self.gravity = 0.75
         self.shoot_cd = 0
         self.jump = False
         self.in_the_air = True
         self.y_velocity = 0
         self.direction = 1
         self.flip_image = False
-        
+
         self.image = self.sprite_animation[self.action][self.animation_index]
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
@@ -53,7 +54,7 @@ class Player(pygame.sprite.Sprite):
         if self.shoot_cd > 0:
             self.shoot_cd -= 1
 
-    def move(self, move_left, move_right, gravity=1):
+    def move(self, move_left, move_right):
         x_to_change = 0
         y_to_change = 0
 
@@ -62,9 +63,13 @@ class Player(pygame.sprite.Sprite):
             self.y_velocity = -17
             self.jump = False
             self.in_the_air = True
+            # Play jump sound
+            jump_sound = pygame.mixer.Sound("audio/jump.mp3")
+            jump_sound.set_volume(0.3)
+            jump_sound.play()
         
         # Gravity
-        self.y_velocity += gravity
+        self.y_velocity += self.gravity
         if self.y_velocity > 10:
             self.y_velocity = 10
         y_to_change += self.y_velocity
@@ -90,10 +95,14 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += y_to_change
 
         self.check_limits()
-
+        
     def shoot(self):
         if self.shoot_cd == 0:
             self.shoot_cd = 60
+            # Play shoot sound
+            shoot_sound = pygame.mixer.Sound("audio/shoot.mp3")
+            shoot_sound.set_volume(0.2)
+            shoot_sound.play()
             bullet = Bullet(self.rect.centerx + (0.7 * self.rect.width * self.direction), self.rect.centery, self.direction, 0.5)
             self.bullet_group.add(bullet)
 

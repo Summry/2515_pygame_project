@@ -28,9 +28,9 @@ class WelcomeScreen(BaseScreen):
         
         self.image = self.sprite_animation[self.animation_index]
 
-        self.start = Button(pygame.image.load("images/red_start.jpg"), 700, 170, 0.3)
-        self.exit = Button(pygame.image.load("images/red_exit.png"), 700, 300, 0.64)
-        self.title = pygame.image.load("images/title.png")
+        self.start = Button(pygame.image.load("images/red_start.jpg").convert_alpha(), 700, 170, 0.3)
+        self.exit = Button(pygame.image.load("images/red_exit.png").convert_alpha(), 700, 300, 0.64)
+        self.title = pygame.image.load("images/title.png").convert_alpha()
 
     def draw(self):
         """drawing welcome screen's surfaces
