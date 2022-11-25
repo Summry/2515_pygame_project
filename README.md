@@ -37,9 +37,9 @@ Basic guide on controls and buttons.
 - Click the `X` on the window
 
 ## **Movement**
-- Jump: `Up Arrow` Key
-- Right: `Right Arrow` Key
-- Left: `Left Arrow` Key
+- Jump: `Space` Key
+- Right: `D` Key
+- Left: `A` Key
 
 ## **Shoot Bullets**
-- Shoot: `Spacebar` Key
+- Shoot: `L` Key
