@@ -2,11 +2,16 @@
 
 A pygame project for 2515 class.
 
+In this game, you will shoot as many zombies as you can. Don't die. No further description.
+
+# **Members**
+
 Nazira Fakhrurradi (A01279940)
 Set 2B
 
 # **Table of Content**
 - [**Caustic: The Zombie Shooter**](#caustic-the-zombie-shooter)
+- [**Members**](#members)
 - [**Table of Content**](#table-of-content)
 - [**Installation**](#installation)
 - [**How to Play**](#how-to-play)
