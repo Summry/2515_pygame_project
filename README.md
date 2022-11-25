@@ -13,6 +13,7 @@ Set 2B
   - [**Start the game**](#start-the-game)
   - [**Exit the game**](#exit-the-game)
   - [**Movement**](#movement)
+  - [**Shoot Bullets**](#shoot-bullets)
 
 # **Installation**
 
@@ -34,4 +35,6 @@ Basic guide on controls and buttons.
 - Jump: `Up Arrow` Key
 - Right: `Right Arrow` Key
 - Left: `Left Arrow` Key
+
+## **Shoot Bullets**
 - Shoot: `Spacebar` Key
