@@ -21,6 +21,7 @@ class GameScreen(BaseScreen):
         self.move_right = False
         self.shoot = False
         self.score = 0
+        self.final_score = None
 
         # Create zombie group and spawn timer
         self.zombie_timer = pygame.USEREVENT + 1
