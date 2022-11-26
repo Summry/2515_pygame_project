@@ -37,6 +37,8 @@ class WelcomeScreen(BaseScreen):
         self.exit.draw(self.window)
 
     def update(self):
+        """Updates the animation of the character
+        """
         animation_interval = 100
         self.image = self.frames[self.frame_index]
         if pygame.time.get_ticks() - self.frame_interval > animation_interval:

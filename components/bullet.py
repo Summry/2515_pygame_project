@@ -1,6 +1,11 @@
 import pygame
 
 class Bullet(pygame.sprite.Sprite):
+    """Bullet class
+
+    Args:
+        pygame (Sprite): pygame sprite
+    """
     def __init__(self, x, y, direction, scale=1):
         pygame.sprite.Sprite.__init__(self)
         self.animation_index = 0
@@ -16,6 +21,8 @@ class Bullet(pygame.sprite.Sprite):
         self.direction = direction
 
     def update(self):
+        """Keep updating the bullet motion
+        """
         self.rect.x += (self.direction * self.speed)
         # Delete bullets that go off screen
         if self.rect.right < 0 or self.rect.left > 960:

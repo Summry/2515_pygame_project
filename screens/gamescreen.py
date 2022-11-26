@@ -5,6 +5,11 @@ from components.player import Player
 from components.zombie import Zombie
 
 class GameScreen(BaseScreen):
+    """Screen for the game
+
+    Args:
+        BaseScreen (screen): base screen of the game
+    """
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
@@ -14,13 +19,12 @@ class GameScreen(BaseScreen):
         self.move_right = False
         self.shoot = False
 
-        # Create a zombie
+        # Create zombie group and spawn timer
         self.zombie_timer = pygame.USEREVENT + 1
         pygame.time.set_timer(self.zombie_timer, 1500)
-
         self.zombie_group = pygame.sprite.Group()
 
-        # Put all sprites in the group
+        # Create player sprite
         self.player_group = pygame.sprite.Group()
         self.player_group.add(self.player)
 
@@ -29,7 +33,8 @@ class GameScreen(BaseScreen):
         self.text_surface = text_font.render(f"Score: {self.score}", False, "Black")
 
     def draw(self):
-
+        """Keep drawing the player, zombie, the score, and the health point
+        """
         if self.player.is_alive:
             # Shoot bullets
             if self.shoot:
@@ -50,17 +55,20 @@ class GameScreen(BaseScreen):
         self.zombie_group.update()
         self.zombie_group.draw(self.window)
         
-
         # Draw the score count
         self.window.blit(self.text_surface, (10, 490))
 
     def update(self):
-        # self.player.update()
+        """Keep updating any changes made during the game
+        """
         self.player_group.update()
-
-        # if self.player.rect.colliderect()
         
     def manage_event(self, event):
+        """Manage all events done during the game screen
+
+        Args:
+            event (event): a pygame event
+        """
         if event.type == self.zombie_timer:
             self.zombie_group.add(Zombie(0.3))
 
@@ -78,7 +86,6 @@ class GameScreen(BaseScreen):
             if event.key == pygame.K_SPACE and self.player.is_alive:
                 self.player.jump = True
     
-
         if event.type == pygame.KEYUP:
             # If player lets go of left key
             if event.key == pygame.K_a:
