@@ -13,6 +13,8 @@ class Player(pygame.sprite.Sprite):
         self.is_alive = True
         self.scale = scale
 
+        self.health = 3
+
         self.frames = []
         self.frame_index = 0
         self.action = 0
@@ -73,7 +75,7 @@ class Player(pygame.sprite.Sprite):
 
         # Jump
         if self.jump == True and self.in_the_air == False:
-            self.y_velocity = -18
+            self.y_velocity = -20
             self.jump = False
             self.in_the_air = True
             # Play jump sound
@@ -118,9 +120,9 @@ class Player(pygame.sprite.Sprite):
             shoot_sound = pygame.mixer.Sound("audio/shoot.mp3")
             shoot_sound.set_volume(0.2)
             shoot_sound.play()
-            bullet = Bullet(self.rect.centerx + (0.7 * self.rect.width * self.direction), self.rect.centery, self.direction, 0.5)
-            self.bullet_group.add(bullet)
-
+            self.bullet = Bullet(self.rect.centerx + (0.7 * self.rect.width * self.direction), self.rect.centery, self.direction, 0.5)
+            self.bullet_group.add(self.bullet)
+            
     def update_animation(self):
         """Animate the player animation (move, jump)
         """
