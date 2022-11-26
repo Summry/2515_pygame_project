@@ -3,6 +3,11 @@ from .bullet import Bullet
 import os
 
 class Player(pygame.sprite.Sprite):
+    """Player sprite class
+
+    Args:
+        pygame (Sprite): pygame Sprite
+    """
     def __init__(self, x, y, scale=1, speed=1):
         pygame.sprite.Sprite.__init__(self)
         self.is_alive = True
@@ -57,6 +62,12 @@ class Player(pygame.sprite.Sprite):
             self.shoot_cd -= 1
 
     def move(self, move_left, move_right):
+        """Keep moving the player
+
+        Args:
+            move_left (boolean): move left if True
+            move_right (boolean): move right if True
+        """
         x_to_change = 0
         y_to_change = 0
 
@@ -99,6 +110,8 @@ class Player(pygame.sprite.Sprite):
         self.check_limits()
         
     def shoot(self):
+        """Shoot bullets
+        """
         if self.shoot_cd == 0:
             self.shoot_cd = 60
             # Play shoot sound
@@ -109,6 +122,8 @@ class Player(pygame.sprite.Sprite):
             self.bullet_group.add(bullet)
 
     def update_animation(self):
+        """Animate the player animation (move, jump)
+        """
         # Animate
         animation_interval = 100
         # Update the image on the current frame
@@ -123,6 +138,11 @@ class Player(pygame.sprite.Sprite):
             self.frame_index = 0
 
     def update_action(self, new_action):
+        """Updates the action of the player (jump/move/stand)
+
+        Args:
+            new_action (string): an action to update the current player action to
+        """
         # Check if the new action is different from the previous one
         if new_action != self.action:
             self.action = new_action
@@ -130,6 +150,11 @@ class Player(pygame.sprite.Sprite):
             self.frame_interval = pygame.time.get_ticks()
 
     def draw(self, window):
+        """Draw the player
+
+        Args:
+            window (surface): the window's display surface
+        """
         window.blit(pygame.transform.flip(self.image, self.flip_image, False), self.rect)
         self.bullet_group.draw(window)
         self.bullet_group.update()
