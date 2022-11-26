@@ -3,7 +3,6 @@ import random
 from .base import BaseScreen
 from components.player import Player
 from components.zombie import Zombie
-from components.bullet import Bullet
 
 class GameScreen(BaseScreen):
     def __init__(self, *args, **kwargs) -> None:
@@ -16,20 +15,20 @@ class GameScreen(BaseScreen):
         self.shoot = False
 
         # Create a zombie
-        # self.zombie = Zombie(300, 300, speed=0)
+        self.zombie_timer = pygame.USEREVENT + 1
+        pygame.time.set_timer(self.zombie_timer, 1500)
+
+        self.zombie_group = pygame.sprite.Group()
 
         # Put all sprites in the group
-        self.player_sprite = pygame.sprite.Group()
-        self.player_sprite.add(self.player)
+        self.player_group = pygame.sprite.Group()
+        self.player_group.add(self.player)
 
-        text_font = pygame.font.SysFont("verdana", 50)
+        text_font = pygame.font.Font("fonts/minecraft.ttf", 50)
         self.score = 0
         self.text_surface = text_font.render(f"Score: {self.score}", False, "Black")
 
     def draw(self):
-        # self.bullet_group.draw(self.window)
-        self.window.blit(self.text_surface, (10, 480))
-        self.player.update()
 
         if self.player.is_alive:
             # Shoot bullets
@@ -46,30 +45,47 @@ class GameScreen(BaseScreen):
                 self.player.update_action(0)
 
             self.player.move(self.move_left, self.move_right)
+        
         self.player.draw(self.window)
-        # self.zombie.draw(self.window)
+        self.zombie_group.update()
+        self.zombie_group.draw(self.window)
+        
+
+        # Draw the score count
+        self.window.blit(self.text_surface, (10, 490))
 
     def update(self):
-        self.player_sprite.update()
+        # self.player.update()
+        self.player_group.update()
+
+        # if self.player.rect.colliderect()
         
     def manage_event(self, event):
+        if event.type == self.zombie_timer:
+            self.zombie_group.add(Zombie(0.3))
+
         if event.type == pygame.KEYDOWN:
-            # If player presses left or right arrows
+            # If player presses left key
             if event.key == pygame.K_a:
                 self.move_left = True
+            # If player presses right key
             if event.key == pygame.K_d:
                 self.move_right = True
+            # If player presses L key
             if event.key == pygame.K_l:
                 self.shoot = True
+            # If player presses space key
             if event.key == pygame.K_SPACE and self.player.is_alive:
                 self.player.jump = True
     
 
         if event.type == pygame.KEYUP:
-            # If player presses left or right arrows
+            # If player lets go of left key
             if event.key == pygame.K_a:
                 self.move_left = False
+            # If player lets go of right key
             if event.key == pygame.K_d:
                 self.move_right = False
+            # If player lets go of the L key
             if event.key == pygame.K_l:
                 self.shoot = False

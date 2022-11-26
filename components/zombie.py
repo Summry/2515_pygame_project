@@ -1,34 +1,71 @@
 import pygame
+import os
+import random
 
 class Zombie(pygame.sprite.Sprite):
-    def __init__(self, x, y, scale=0.2, speed=0):
+    def __init__(self, scale=1):
         pygame.sprite.Sprite.__init__(self)
-        image = pygame.transform.flip(pygame.image.load("images/zombie2.png").convert_alpha(), flip_x=True, flip_y=False)
         self.scale = scale
-        self.speed = speed
-        self.direction = 1
-        self.flip_image = False
-        self.image = pygame.transform.scale(image, (
-            int(image.get_width() * self.scale), int(image.get_height() * self.scale
-        )))
-        self.rect = self.image.get_rect()
-        self.rect.center = (x, y)
+        
+        self.speed = 4
+        self.frames = []
+        self.frame_index = 0
+        self.frame_interval = pygame.time.get_ticks()
+        self.spawn_side = random.choice([0, 1])
 
-    def move(self, move_left, move_right):
+        tmp_list = []
+        num_of_files = len(os.listdir(f"images/zombie/walk/left"))
+        for i in range(0, num_of_files):
+            image = pygame.image.load(f"images/zombie/walk/left/{i}.png").convert_alpha()
+            image = pygame.transform.scale(image, (int(image.get_width() * scale), int(image.get_height() * scale)))
+            tmp_list.append(image)
+        self.frames.append(tmp_list)
+
+        tmp_list = []
+        for i in range(0, num_of_files):
+            image = pygame.image.load(f"images/zombie/walk/right/{i}.png").convert_alpha()
+            image = pygame.transform.scale(image, (int(image.get_width() * scale), int(image.get_height() * scale)))
+            tmp_list.append(image)
+        self.frames.append(tmp_list)
+
+        self.image = self.frames[self.spawn_side][self.frame_index]
+        self.rect = self.image.get_rect()
+        self.rect.center = (0,0)
+        if self.spawn_side == 0:
+            self.rect.center = (0, 310)
+        if self.spawn_side == 1:
+            self.rect.center = (960, 310)
+
+    def move(self):
         x_to_change = 0
         y_to_change = 0
 
-        if move_left:
-            x_to_change = -self.speed
-            self.flip_image = True
-            self.direction = -1
-        if move_right:
+        if self.spawn_side == 0:
             x_to_change = self.speed
-            self.flip_image = False
-            self.direction = 1
+
+        if self.spawn_side == 1:
+            x_to_change = -self.speed
 
         self.rect.x += x_to_change
         self.rect.y += y_to_change
 
+    def update(self):      
+        self.update_animation()
+        self.move()
+        if self.rect.left > 960 and self.spawn_side == 0:
+            self.kill()
+        if self.rect.right < 0 and self.spawn_side == 1:
+            self.kill()
+        
+    def update_animation(self):
+        animation_interval = 100
+        self.image = self.frames[self.spawn_side][self.frame_index]
+        if pygame.time.get_ticks() - self.frame_interval > animation_interval:
+            self.frame_interval = pygame.time.get_ticks()
+            self.frame_index += 1
+        
+        if self.frame_index >= len(self.frames[self.spawn_side]):
+            self.frame_index = 0
+
     def draw(self, window):
-        window.blit(pygame.transform.flip(self.image, self.flip_image, False), self.rect)
+        window.blit(self.image, self.rect)

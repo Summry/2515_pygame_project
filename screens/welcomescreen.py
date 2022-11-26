@@ -3,8 +3,6 @@ import os
 from .base import BaseScreen
 from components.button import Button
 
-
-
 class WelcomeScreen(BaseScreen):
     """Welcome screen of the game
 
@@ -13,20 +11,18 @@ class WelcomeScreen(BaseScreen):
     """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.sprites = pygame.sprite.Group()
-        self.sprite_animation = []
-        self.animation_index = 0
-        self.update_interval = pygame.time.get_ticks()
-
+        self.frames = []
+        self.frame_index = 0
+        self.frame_interval = pygame.time.get_ticks()
 
         num_of_files = len(os.listdir("images/player/stand"))
 
         for i in range(0, num_of_files):
             image = pygame.image.load(f"images/player/stand/{i}.png").convert_alpha()
             image = pygame.transform.scale(image, (int(image.get_width() * 0.5), int(image.get_height() * 0.5)))
-            self.sprite_animation.append(image)
+            self.frames.append(image)
         
-        self.image = self.sprite_animation[self.animation_index]
+        self.image = self.frames[self.frame_index]
 
         self.start = Button(pygame.image.load("images/red_start.jpg").convert_alpha(), 700, 170, 0.3)
         self.exit = Button(pygame.image.load("images/red_exit.png").convert_alpha(), 700, 300, 0.64)
@@ -42,13 +38,13 @@ class WelcomeScreen(BaseScreen):
 
     def update(self):
         animation_interval = 100
-        self.image = self.sprite_animation[self.animation_index]
-        if pygame.time.get_ticks() - self.update_interval > animation_interval:
-            self.update_interval = pygame.time.get_ticks()
-            self.animation_index += 1
+        self.image = self.frames[self.frame_index]
+        if pygame.time.get_ticks() - self.frame_interval > animation_interval:
+            self.frame_interval = pygame.time.get_ticks()
+            self.frame_index += 1
 
-        if self.animation_index >= len(self.sprite_animation):
-            self.animation_index = 0
+        if self.frame_index >= len(self.frames):
+            self.frame_index = 0
 
     def manage_event(self, event):
         """manages the events in welcome screen

@@ -3,14 +3,15 @@ from .bullet import Bullet
 import os
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y, scale=1, speed=0):
+    def __init__(self, x, y, scale=1, speed=1):
         pygame.sprite.Sprite.__init__(self)
         self.is_alive = True
         self.scale = scale
-        self.sprite_animation = []
-        self.animation_index = 0
+
+        self.frames = []
+        self.frame_index = 0
         self.action = 0
-        self.update_interval = pygame.time.get_ticks()
+        self.frame_interval = pygame.time.get_ticks()
         
         # Get all images for the player
         animation_category = ['stand', 'walk', 'jump']
@@ -24,18 +25,19 @@ class Player(pygame.sprite.Sprite):
                 image = pygame.transform.scale(image, (int(image.get_width() * self.scale), int(image.get_height() * self.scale)))
                 temp_list.append(image)
 
-            self.sprite_animation.append(temp_list)
+            self.frames.append(temp_list)
 
         self.speed = speed
         self.gravity = 0.75
         self.shoot_cd = 0
-        self.jump = False
-        self.in_the_air = True
         self.y_velocity = 0
         self.direction = 1
-        self.flip_image = False
 
-        self.image = self.sprite_animation[self.action][self.animation_index]
+        self.in_the_air = True
+        self.jump = False
+
+        self.flip_image = False
+        self.image = self.frames[self.action][self.frame_index]
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
 
@@ -60,7 +62,7 @@ class Player(pygame.sprite.Sprite):
 
         # Jump
         if self.jump == True and self.in_the_air == False:
-            self.y_velocity = -17
+            self.y_velocity = -18
             self.jump = False
             self.in_the_air = True
             # Play jump sound
@@ -110,22 +112,22 @@ class Player(pygame.sprite.Sprite):
         # Animate
         animation_interval = 100
         # Update the image on the current frame
-        self.image = self.sprite_animation[self.action][self.animation_index]
+        self.image = self.frames[self.action][self.frame_index]
         # Check if a certain time has passed since the last update
-        if pygame.time.get_ticks() - self.update_interval > animation_interval:
-            self.update_interval = pygame.time.get_ticks()
-            self.animation_index += 1
+        if pygame.time.get_ticks() - self.frame_interval > animation_interval:
+            self.frame_interval = pygame.time.get_ticks()
+            self.frame_index += 1
         
         # If animation list is done, reset
-        if self.animation_index >= len(self.sprite_animation[self.action]):
-            self.animation_index = 0
+        if self.frame_index >= len(self.frames[self.action]):
+            self.frame_index = 0
 
     def update_action(self, new_action):
         # Check if the new action is different from the previous one
         if new_action != self.action:
             self.action = new_action
-            self.animation_index = 0
-            self.update_interval = pygame.time.get_ticks()
+            self.frame_index = 0
+            self.frame_interval = pygame.time.get_ticks()
 
     def draw(self, window):
         window.blit(pygame.transform.flip(self.image, self.flip_image, False), self.rect)
