@@ -38,8 +38,8 @@ Basic guide on controls and buttons.
 
 ## **Movement**
 - Jump: `Space` Key
-- Right: `D` Key
-- Left: `A` Key
+- Move Right: `D` Key
+- Move Left: `A` Key
 
 ## **Shoot Bullets**
-- Shoot: `L` Key
+- Shoot Bullet: `L` Key
