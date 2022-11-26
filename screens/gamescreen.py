@@ -3,6 +3,7 @@ import random
 from .base import BaseScreen
 from components.player import Player
 from components.zombie import Zombie
+from globalvars import WIDTH, HEIGHT
 
 class GameScreen(BaseScreen):
     """Screen for the game
@@ -12,25 +13,23 @@ class GameScreen(BaseScreen):
     """
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
+        self.start_time = pygame.time.get_ticks() // 1000
 
         # Create the player
-        self.player = Player(480, 350, 0.2, speed=5)
+        self.player = Player(WIDTH // 2, 350, 0.2, speed=5)
         self.move_left = False
         self.move_right = False
         self.shoot = False
+        self.score = 0
 
         # Create zombie group and spawn timer
         self.zombie_timer = pygame.USEREVENT + 1
-        pygame.time.set_timer(self.zombie_timer, 1500)
+        pygame.time.set_timer(self.zombie_timer, 2000)
         self.zombie_group = pygame.sprite.Group()
 
         # Create player sprite
         self.player_group = pygame.sprite.Group()
         self.player_group.add(self.player)
-
-        text_font = pygame.font.Font("fonts/minecraft.ttf", 50)
-        self.score = 0
-        self.text_surface = text_font.render(f"Score: {self.score}", False, "Black")
 
     def draw(self):
         """Keep drawing the player, zombie, the score, and the health point
@@ -55,13 +54,35 @@ class GameScreen(BaseScreen):
         self.zombie_group.update()
         self.zombie_group.draw(self.window)
         
-        # Draw the score count
-        self.window.blit(self.text_surface, (10, 490))
+        # Draw the score count and health point
+        score_font = pygame.font.Font("fonts/minecraft.ttf", 50)
+        health_font = pygame.font.Font("fonts/minecraft.ttf", 50)
+        self.score_text_surface = score_font.render(f"Score: {self.score}", False, "Black")
+        self.health_text_surface = health_font.render(f"Health: {self.player.health}", False, "Black")
+        self.window.blit(self.score_text_surface, (WIDTH // 96, 490))
+        self.window.blit(self.health_text_surface, (720, 490))
 
     def update(self):
         """Keep updating any changes made during the game
         """
         self.player_group.update()
+
+        # Check collision - kill kill zombie sprite and reduce player hp
+        if pygame.sprite.groupcollide(self.player_group, self.zombie_group, 0, 1).keys():
+            self.player.health -= 1
+        
+        if self.player.health == 0:
+            self.start_time += pygame.time.get_ticks() // 1000
+            # Move to game over screen
+            self.final_score = self.score
+            self.next_screen = "game_over"
+            self.running = False
+        
+        if pygame.sprite.groupcollide(self.zombie_group, self.player.bullet_group, 1, 1).keys():
+            zombie_sound = pygame.mixer.Sound("audio/zombie.mp3")
+            zombie_sound.set_volume(0.5)
+            zombie_sound.play()
+            self.score += 1
         
     def manage_event(self, event):
         """Manage all events done during the game screen

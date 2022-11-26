@@ -1,6 +1,7 @@
 import pygame
 pygame.init()
 from screens import WelcomeScreen, GameScreen, GameOverScreen
+from globalvars import HEIGHT, WIDTH
 
 
 class Game:
@@ -8,7 +9,7 @@ class Game:
 
     def __init__(self):
         # Creates the window
-        self.window = pygame.display.set_mode((960, 540))
+        self.window = pygame.display.set_mode((WIDTH, HEIGHT))
 
     def run(self):
         """Main method, manages interaction between screens"""
@@ -25,6 +26,7 @@ class Game:
         # Start the loop
         running = True
         current_screen = "welcome"
+        final_score = None
         while running:
 
             # Play music
@@ -36,10 +38,16 @@ class Game:
                 raise RuntimeError(f"Screen {current_screen} not found!")
 
             # Create a new screen object, "connected" to the window
-            screen = screen_class(self.window)
+            if current_screen == "game_over":
+                screen = screen_class(self.window, final_score)
+            else:
+                screen = screen_class(self.window)
 
             # Run the screen
             screen.run()
+
+            if screen.final_score is not None:
+                final_score = screen.final_score
 
             # When the `run` method stops, we should have a `next_screen` setup
             if screen.next_screen is False:
@@ -56,7 +64,10 @@ class Game:
         if (screen):
             pygame.mixer.music.load(f"audio/{screen}.mp3")
             if (screen == "game"):
-                pygame.mixer.music.set_volume(0)
+                pygame.mixer.music.set_volume(0.02)
+            pygame.mixer.music.play(-1)
+            if (screen == "game_over"):
+                pygame.mixer.music.set_volume(1.5)
             pygame.mixer.music.play(-1)
         else:
             pygame.mixer.music.stop()

@@ -1,4 +1,5 @@
 import pygame
+from globalvars import HEIGHT, WIDTH
 
 class BaseScreen:
 
@@ -10,7 +11,7 @@ class BaseScreen:
         """
         self.window = window
         self.next_screen = False
-        self.background = pygame.transform.scale(pygame.image.load("images/snow_forest.png").convert_alpha(), (960, 540))
+        self.background = pygame.transform.scale(pygame.image.load("images/snow_forest.png").convert_alpha(), (WIDTH, HEIGHT))
 
     def run(self):
         """method that runs the screen for all screens

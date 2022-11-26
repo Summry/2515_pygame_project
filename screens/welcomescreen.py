@@ -2,6 +2,7 @@ import pygame
 import os
 from .base import BaseScreen
 from components.button import Button
+from globalvars import HEIGHT, WIDTH
 
 class WelcomeScreen(BaseScreen):
     """Welcome screen of the game
@@ -13,26 +14,28 @@ class WelcomeScreen(BaseScreen):
         super().__init__(*args, **kwargs)
         self.frames = []
         self.frame_index = 0
+        self.final_score = None
         self.frame_interval = pygame.time.get_ticks()
 
         num_of_files = len(os.listdir("images/player/stand"))
 
         for i in range(0, num_of_files):
             image = pygame.image.load(f"images/player/stand/{i}.png").convert_alpha()
-            image = pygame.transform.scale(image, (int(image.get_width() * 0.5), int(image.get_height() * 0.5)))
+            image = pygame.transform.scale(image, (int(image.get_width() * 0.3), int(image.get_height() * 0.3)))
             self.frames.append(image)
         
         self.image = self.frames[self.frame_index]
 
-        self.start = Button(pygame.image.load("images/red_start.jpg").convert_alpha(), 700, 170, 0.3)
-        self.exit = Button(pygame.image.load("images/red_exit.png").convert_alpha(), 700, 300, 0.64)
-        self.title = pygame.image.load("images/title.png").convert_alpha()
+        self.start = Button(pygame.image.load("images/red_start.jpg").convert_alpha(), 700, HEIGHT // 1.8, 0.3)
+        self.exit = Button(pygame.image.load("images/red_exit.png").convert_alpha(), 700, HEIGHT // 1.3, 0.64)
+        title = pygame.image.load("images/title.png").convert_alpha()
+        self.title = pygame.transform.scale(title, (title.get_width() * 1.1, title.get_height() * 1.05))
 
     def draw(self):
         """drawing welcome screen's surfaces
         """
         self.window.blit(self.title, (0,0))
-        self.window.blit(self.image, (100, 150))
+        self.window.blit(self.image, (WIDTH // 9.6, WIDTH // 3.6))
         self.start.draw(self.window)
         self.exit.draw(self.window)
 
