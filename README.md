@@ -23,6 +23,7 @@ Set 2B
   - [**Welcome Screen**](#welcome-screen)
   - [**Game Screen**](#game-screen)
   - [**End Screen**](#end-screen)
+  - [**View the Leaderboard**](#view-the-leaderboard)
 - [**Go to top**](#go-to-top)
 
 # <ins>**Installation**</ins>
@@ -31,7 +32,19 @@ Clone the repo: `git clone https://github.com/Summry/2515_pygame_project.git`
 
 # <ins>**How to Play**</ins>
 
-Basic guide on controls and buttons.
+1. Run the flask app.
+
+```
+python app.py
+```
+
+2. Run the game.
+
+```
+python game.py
+```
+
+Gain points by jumping or shooting zombies.
 
 ## <ins>**Start the game**</ins>
 - Click the Start button (Welcome Screen)
@@ -64,5 +77,9 @@ Basic guide on controls and buttons.
 ## <ins>**End Screen**</ins>
 
 ![game over screen](images/readme/gameover.png "game over")
+
+## <ins>**View the Leaderboard**</ins>
+
+![leaderboard](images/readme/leaderboard.png "leaderboard")
 
 # [<ins>**Go to top**</ins>](#caustic-the-zombie-shooter)
