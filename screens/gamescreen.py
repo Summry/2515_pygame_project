@@ -18,7 +18,6 @@ class GameScreen(BaseScreen):
         # Manage player timer
         self.counter = 300
         pygame.time.set_timer(pygame.USEREVENT, 1000)
-        self.counter_font = pygame.font.Font("fonts/minecraft.ttf", 50)
 
         # Create the player
         self.player = Player(WIDTH // 2, 350, 0.2, speed=5)
@@ -30,12 +29,33 @@ class GameScreen(BaseScreen):
 
         # Create zombie group and spawn timer
         self.zombie_timer = pygame.USEREVENT + 1
-        pygame.time.set_timer(self.zombie_timer, 1500) # 1500
+        pygame.time.set_timer(self.zombie_timer, 1500)
         self.zombie_group = pygame.sprite.Group()
 
         # Create player sprite
         self.player_group = pygame.sprite.Group()
         self.player_group.add(self.player)
+
+    def display_score(self):
+        """Method to display the score
+        """
+        score_font = pygame.font.Font("fonts/minecraft.ttf", 50)
+        score_text_surface = score_font.render(f"Score: {self.score}", False, "Black")
+        self.window.blit(score_text_surface, (WIDTH // 96, 490))
+
+    def display_health(self):
+        """Method to display the health point
+        """
+        health_font = pygame.font.Font("fonts/minecraft.ttf", 50)
+        health_text_surface = health_font.render(f"Health: {self.player.health}", False, "Green")
+        self.window.blit(health_text_surface, (720, 490))
+
+    def display_timer(self):
+        """Method to display game timer
+        """
+        counter_font = pygame.font.Font("fonts/minecraft.ttf", 50)
+        timer_text_surface = counter_font.render(f"Time left: {self.counter}", False, "Red")
+        self.window.blit(timer_text_surface, (585, 20))
 
     def draw(self):
         """Keep drawing the player, zombie, the score, and the health point
@@ -62,17 +82,9 @@ class GameScreen(BaseScreen):
         self.zombie_group.update()
         self.zombie_group.draw(self.window)
         
-        # Draw the score count and health point
-        score_font = pygame.font.Font("fonts/minecraft.ttf", 50)
-        health_font = pygame.font.Font("fonts/minecraft.ttf", 50)
-        self.score_text_surface = score_font.render(f"Score: {self.score}", False, "Black")
-        self.health_text_surface = health_font.render(f"Health: {self.player.health}", False, "Green")
-        self.window.blit(self.score_text_surface, (WIDTH // 96, 490))
-        self.window.blit(self.health_text_surface, (720, 490))
-
-        # Draw the timer
-        self.timer_text_surface = self.counter_font.render(f"Time left: {self.counter}", False, "Red")
-        self.window.blit(self.timer_text_surface, (585, 20))
+        self.display_score()
+        self.display_health()
+        self.display_timer()
 
     def update(self):
         """Keep updating any changes made during the game
