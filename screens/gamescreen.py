@@ -17,7 +17,7 @@ class GameScreen(BaseScreen):
 
         # Manage player timer
         self.counter = 300
-        pygame.time.set_timer(pygame.USEREVENT, 1000)
+        pygame.time.set_timer(pygame.USEREVENT, 1000) # Set the time counter
 
         # Create the player
         self.player = Player(WIDTH // 2, 350, 0.2, speed=5)
@@ -29,11 +29,11 @@ class GameScreen(BaseScreen):
 
         # Create zombie group and spawn timer
         self.zombie_timer = pygame.USEREVENT + 1
-        pygame.time.set_timer(self.zombie_timer, 1500)
+        pygame.time.set_timer(self.zombie_timer, 1500) # Every 1.5s, a zombie will spawn
         self.zombie_group = pygame.sprite.Group()
 
         # Create player sprite
-        self.player_group = pygame.sprite.Group()
+        self.player_group = pygame.sprite.Group() # For collision and methods
         self.player_group.add(self.player)
 
     def display_score(self):
