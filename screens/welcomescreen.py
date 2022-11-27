@@ -28,13 +28,18 @@ class WelcomeScreen(BaseScreen):
 
         self.start = Button(pygame.image.load("images/red_start.jpg").convert_alpha(), 700, HEIGHT // 1.8, 0.3)
         self.exit = Button(pygame.image.load("images/red_exit.png").convert_alpha(), 700, HEIGHT // 1.3, 0.64)
-        title = pygame.image.load("images/title.png").convert_alpha()
-        self.title = pygame.transform.scale(title, (title.get_width() * 1.1, title.get_height() * 1.05))
+
+    def display_title(self):
+        """Method to display the title
+        """
+        title_image = pygame.image.load("images/title.png").convert_alpha()
+        title = pygame.transform.scale(title_image, (title_image.get_width() * 1.1, title_image.get_height() * 1.05))
+        self.window.blit(title, (0, 0))
 
     def draw(self):
         """drawing welcome screen's surfaces
         """
-        self.window.blit(self.title, (0,0))
+        self.display_title()
         self.window.blit(self.image, (WIDTH // 9.6, WIDTH // 3.6))
         self.start.draw(self.window)
         self.exit.draw(self.window)
