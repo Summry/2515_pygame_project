@@ -1,15 +1,15 @@
-# **Caustic: The Zombie Shooter**
+# <ins>**Caustic: The Zombie Shooter**</ins>
 
 A pygame project for 2515 class.
 
 In this game, you will shoot as many zombies as you can. Don't die. No further description.
 
-# **Members**
+# <ins>**Members**</ins>
 
 Nazira Fakhrurradi (A01279940)
 Set 2B
 
-# **Table of Content**
+# <ins>**Table of Content**</ins>
 - [**Caustic: The Zombie Shooter**](#caustic-the-zombie-shooter)
 - [**Members**](#members)
 - [**Table of Content**](#table-of-content)
@@ -18,28 +18,51 @@ Set 2B
   - [**Start the game**](#start-the-game)
   - [**Exit the game**](#exit-the-game)
   - [**Movement**](#movement)
-  - [**Shoot Bullets**](#shoot-bullets)
+  - [**Shoot Bullet**](#shoot-bullet)
+- [**Game Screenshots**](#game-screenshots)
+  - [**Welcome Screen**](#welcome-screen)
+  - [**Game Screen**](#game-screen)
+  - [**End Screen**](#end-screen)
+- [**Go to top**](#go-to-top)
 
-# **Installation**
+# <ins>**Installation**</ins>
 
-git clone `https://github.com/Summry/2515_pygame_project.git`
+Clone the repo: `git clone https://github.com/Summry/2515_pygame_project.git`
 
-# **How to Play**
+# <ins>**How to Play**</ins>
 
 Basic guide on controls and buttons.
 
-## **Start the game**
+## <ins>**Start the game**</ins>
 - Click the Start button (Welcome Screen)
 
-## **Exit the game**
+## <ins>**Exit the game**</ins>
 - Click the Exit button (Welcome Screen)
 - Press `ESC` Key
-- Click the `X` on the window
+- Click the `X` on the window display
 
-## **Movement**
+## <ins>**Movement**</ins>
 - Jump: `Space` Key
 - Move Right: `D` Key
 - Move Left: `A` Key
 
-## **Shoot Bullets**
+## <ins>**Shoot Bullet**</ins>
 - Shoot Bullet: `L` Key
+
+# <ins>**Game Screenshots**</ins>
+
+## <ins>**Welcome Screen**</ins>
+
+![welcome screen](images/readme/welcome.png "welcome screen")
+
+## <ins>**Game Screen**</ins>
+
+![game screen](images/readme/game1.png "game screen jump")
+
+![game 2 screen](images/readme/game2.png "game screen shoot")
+
+## <ins>**End Screen**</ins>
+
+![game over screen](images/readme/gameover.png "game over")
+
+# [<ins>**Go to top**</ins>](#caustic-the-zombie-shooter)
