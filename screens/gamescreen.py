@@ -1,4 +1,5 @@
 import pygame
+pygame.init()
 from .base import BaseScreen
 from components.player import Player
 from components.zombie import Zombie
@@ -14,6 +15,11 @@ class GameScreen(BaseScreen):
         super().__init__(*args, **kwargs)
         self.start_time = pygame.time.get_ticks() // 1000
 
+        # Manage player timer
+        self.counter = 300
+        pygame.time.set_timer(pygame.USEREVENT, 1000)
+        self.counter_font = pygame.font.Font("fonts/minecraft.ttf", 50)
+
         # Create the player
         self.player = Player(WIDTH // 2, 350, 0.2, speed=5)
         self.move_left = False
@@ -24,7 +30,7 @@ class GameScreen(BaseScreen):
 
         # Create zombie group and spawn timer
         self.zombie_timer = pygame.USEREVENT + 1
-        pygame.time.set_timer(self.zombie_timer, 1500)
+        pygame.time.set_timer(self.zombie_timer, 1500) # 1500
         self.zombie_group = pygame.sprite.Group()
 
         # Create player sprite
@@ -60,9 +66,13 @@ class GameScreen(BaseScreen):
         score_font = pygame.font.Font("fonts/minecraft.ttf", 50)
         health_font = pygame.font.Font("fonts/minecraft.ttf", 50)
         self.score_text_surface = score_font.render(f"Score: {self.score}", False, "Black")
-        self.health_text_surface = health_font.render(f"Health: {self.player.health}", False, "Black")
+        self.health_text_surface = health_font.render(f"Health: {self.player.health}", False, "Green")
         self.window.blit(self.score_text_surface, (WIDTH // 96, 490))
         self.window.blit(self.health_text_surface, (720, 490))
+
+        # Draw the timer
+        self.timer_text_surface = self.counter_font.render(f"Time left: {self.counter}", False, "Red")
+        self.window.blit(self.timer_text_surface, (585, 20))
 
     def update(self):
         """Keep updating any changes made during the game
@@ -95,6 +105,14 @@ class GameScreen(BaseScreen):
         Args:
             event (event): a pygame event
         """
+        if event.type == pygame.USEREVENT:
+            if self.counter > 0:
+                self.counter -= 1
+            else:
+                self.final_score = self.score
+                self.next_screen = "game_over"
+                self.running = False
+
         if event.type == self.zombie_timer:
             self.zombie_group.add(Zombie(0.3))
 
