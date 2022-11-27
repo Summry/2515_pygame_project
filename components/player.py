@@ -115,7 +115,7 @@ class Player(pygame.sprite.Sprite):
         """Shoot bullets
         """
         if self.shoot_cd == 0:
-            self.shoot_cd = 60
+            self.shoot_cd = 90
             # Play shoot sound
             shoot_sound = pygame.mixer.Sound("audio/shoot.mp3")
             shoot_sound.set_volume(0.2)
