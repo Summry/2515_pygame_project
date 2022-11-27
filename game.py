@@ -13,7 +13,7 @@ class Game:
 
     def run(self):
         """Main method, manages interaction between screens"""
-        pygame.display.set_caption("Caustic: The Zombie Shooter")
+        pygame.display.set_caption("Caustic: Jumper and Zombie Shooter")
 
 
         # These are the available screens
