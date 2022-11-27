@@ -71,6 +71,9 @@ class GameScreen(BaseScreen):
 
         # Check collision - kill kill zombie sprite and reduce player hp
         if pygame.sprite.groupcollide(self.player_group, self.zombie_group, 0, 1).keys():
+            take_dmg = pygame.mixer.Sound("audio/hurt.mp3")
+            take_dmg.set_volume(1)
+            take_dmg.play()
             self.player.health -= 1
         
         if self.player.health == 0:
