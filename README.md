@@ -1,4 +1,4 @@
-# <ins>**Caustic: The Zombie Shooter**</ins>
+# <ins>**Caustic: Jumper and Zombie Shooter**</ins>
 
 A pygame project for 2515 class.
 
@@ -6,11 +6,10 @@ In this game, you will shoot as many zombies as you can, and you will jump as ma
 
 # <ins>**Members**</ins>
 
-Nazira Fakhrurradi (A01279940)
-Set 2B
+Nazira Fakhrurradi (A01279940) - Set 2B
 
 # <ins>**Table of Content**</ins>
-- [**Caustic: The Zombie Shooter**](#caustic-the-zombie-shooter)
+- [**Caustic: Jumper and Zombie Shooter**](#caustic-jumper-and-zombie-shooter)
 - [**Members**](#members)
 - [**Table of Content**](#table-of-content)
 - [**Installation**](#installation)
@@ -23,7 +22,7 @@ Set 2B
   - [**Welcome Screen**](#welcome-screen)
   - [**Game Screen**](#game-screen)
   - [**End Screen**](#end-screen)
-  - [**View the Leaderboard**](#view-the-leaderboard)
+  - [**View the Scoreboard**](#view-the-scoreboard)
 - [**Go to top**](#go-to-top)
 
 # <ins>**Installation**</ins>
@@ -78,8 +77,8 @@ Gain points by jumping or shooting zombies.
 
 ![game over screen](images/readme/gameover.png "game over")
 
-## <ins>**View the Leaderboard**</ins>
+## <ins>**View the Scoreboard**</ins>
 
-![leaderboard](images/readme/leaderboard.png "leaderboard")
+![scoreboard](images/readme/leaderboard.png "scoreboard")
 
 # [<ins>**Go to top**</ins>](#caustic-the-zombie-shooter)
