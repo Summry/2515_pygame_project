@@ -20,12 +20,12 @@ class GameScreen(BaseScreen):
         self.move_left = False
         self.move_right = False
         self.shoot = False
-        self.score = 0
+        self.score = -1
         self.final_score = None
 
         # Create zombie group and spawn timer
         self.zombie_timer = pygame.USEREVENT + 1
-        pygame.time.set_timer(self.zombie_timer, 2000)
+        pygame.time.set_timer(self.zombie_timer, 1500)
         self.zombie_group = pygame.sprite.Group()
 
         # Create player sprite
@@ -40,6 +40,8 @@ class GameScreen(BaseScreen):
             if self.shoot:
                 self.player.shoot()
             if self.player.in_the_air:
+                # Add score for jumping
+                self.score += 1
                 # Jump animation
                 self.player.update_action(2)
             elif self.move_left or self.move_right:
@@ -83,7 +85,7 @@ class GameScreen(BaseScreen):
             zombie_sound = pygame.mixer.Sound("audio/zombie.mp3")
             zombie_sound.set_volume(0.5)
             zombie_sound.play()
-            self.score += 1
+            self.score += 55
         
     def manage_event(self, event):
         """Manage all events done during the game screen
