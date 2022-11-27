@@ -17,10 +17,10 @@ class GameOverScreen(BaseScreen):
         
     def draw(self):
         score_font = pygame.font.Font("fonts/minecraft.ttf", 50)
-        self.score_text_surface = score_font.render(f"Your score: {self.final_score}", False, "Brown")
+        self.score_text_surface = score_font.render(f"Your score: {self.final_score}", False, "Black")
 
         self.window.blit(self.image, (180, HEIGHT // 6.75))
-        self.window.blit(self.score_text_surface, (330, 430))
+        self.window.blit(self.score_text_surface, (280, 430))
         self.retry.draw(self.window)
         self.exit.draw(self.window)
 
@@ -47,11 +47,11 @@ class GameOverScreen(BaseScreen):
         id = str(uuid.uuid4())
 
         game = {
-            "id": id,
+            "id": id, 
             "score": self.final_score
         }
 
-        requests.post(flask_url, game)
+        requests.post(flask_url, json=game)
 
     def update(self):
         pass
