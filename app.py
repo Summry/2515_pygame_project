@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from models.score import Score
 import json
 
 app = Flask(__name__)
@@ -6,50 +7,37 @@ app.config['SECRET_KEY'] = "asdflkjhasdflkjhasdflkjh"
 
 @app.route("/")
 def home():
-
-    data = []
-    with open("scores.json", "r") as fp:
-        json_data = json.load(fp)
-        for game in json_data:
-            data.append(game)
-
-    """
-    [
-        {
-            "id": qwerwqer-qwer-qwer-qwer-qwerqwerqwer",
-            "score": 1
-        }
-    ]
-    """
-    data = sorted(data, key=lambda x: x["score"], reverse=True)
-    return render_template("index.html", data=data), 200
+    try:
+        file = Score("scores.json")
+        scores = file.get_scores()
+        return render_template("index.html", scores=scores), 200
+    except ValueError:
+        return "Invalid data", 400
 
 @app.route("/add", methods=["POST"])
-def score():
+def add_score():
+    scores = Score("scores.json")
+    
+    data = request.json
 
-    data = {}
-    with open("scores.json", "r") as fp:
-        json_data = json.load(fp)
-        data["board"] = json_data["board"]
-        data["games"] = [game for game in json_data["games"]]
-
-    game = request.json
     """
-    {
-        "id": "asdfasd-asdf-asdf-asdf-asdfadsfasdf",
-        "score": 10
+    data = {
+        "id": some string,
+        "score": some integer
     }
     """
-    if not game:
-        return "Oops, not found.", 404
-    if "id" not in game.keys() or "score" not in game.keys():
-        return "There was a problem.", 400
-    
-    data["games"].append(game)
-    with open("scores.json", "w") as fp:
-        json.dump(data, fp)
-    
-    return "Score added", 301
+
+    if not data:
+        return "Oops, game data not found.", 404
+    if "id" not in data.keys() or "score" not in data.keys():
+        return "Invalid data.", 400
+
+    try:
+        scores.add_score(data["id"], data["score"])
+        scores.save()
+        return "Score added.", 301
+    except ValueError:
+        return "Invalid data.", 400
 
 if __name__ == "__main__":
     app.run(debug=True)
