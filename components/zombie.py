@@ -12,7 +12,7 @@ class Zombie(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.scale = scale
         
-        self.speed = 4
+        self.speed = 5
         self.frames = []
         self.frame_index = 0
         self.frame_interval = pygame.time.get_ticks()
