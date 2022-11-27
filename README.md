@@ -2,7 +2,7 @@
 
 A pygame project for 2515 class.
 
-In this game, you will shoot as many zombies as you can. Don't die. No further description.
+In this game, you will shoot as many zombies as you can, and you will jump as many times as you can. Don't die. No further description.
 
 # <ins>**Members**</ins>
 
