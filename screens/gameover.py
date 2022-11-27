@@ -6,6 +6,11 @@ from components.button import Button
 from globalvars import HEIGHT, WIDTH
 
 class GameOverScreen(BaseScreen):
+    """Game Over Screen
+
+    Args:
+        BaseScreen (screen): parent class of the GameOverScreen
+    """
     def __init__(self, window, final_score) -> None:
         super().__init__(window)
         self.final_score = final_score
@@ -16,6 +21,8 @@ class GameOverScreen(BaseScreen):
         self.score_recorded = False
         
     def draw(self):
+        """Constantly draw the game over screen
+        """
         score_font = pygame.font.Font("fonts/minecraft.ttf", 50)
         self.score_text_surface = score_font.render(f"Your score: {self.final_score}", False, "Black")
 
@@ -30,6 +37,11 @@ class GameOverScreen(BaseScreen):
             self.upload_score() # Upload the score
 
     def manage_event(self, event):
+        """Event manager
+
+        Args:
+            event (pygame event): a pygame event
+        """
         if self.retry.draw(self.window):
             button_sound = pygame.mixer.Sound("audio/button-click.mp3")
             button_sound.set_volume(0.3)

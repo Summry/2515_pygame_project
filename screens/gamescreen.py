@@ -1,5 +1,4 @@
 import pygame
-import random
 from .base import BaseScreen
 from components.player import Player
 from components.zombie import Zombie

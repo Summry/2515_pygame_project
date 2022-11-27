@@ -59,6 +59,8 @@ class Player(pygame.sprite.Sprite):
             self.rect.right = 970
 
     def update(self):
+        """Update animation and shoot cooldown
+        """
         self.update_animation()
         if self.shoot_cd > 0:
             self.shoot_cd -= 1
