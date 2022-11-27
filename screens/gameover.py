@@ -20,14 +20,16 @@ class GameOverScreen(BaseScreen):
         self.exit = Button(pygame.image.load("images/red_exit.png").convert_alpha(), WIDTH // 1.92, HEIGHT // 1.8, 0.64)
         self.score_recorded = False
         
-    def draw(self):
-        """Constantly draw the game over screen
-        """
+    def display_final_score(self):
         score_font = pygame.font.Font("fonts/minecraft.ttf", 50)
-        self.score_text_surface = score_font.render(f"Your score: {self.final_score}", False, "Black")
+        score_text_surface = score_font.render(f"Your score: {self.final_score}", False, "Black")
+        self.window.blit(score_text_surface, (280, 430))
 
+    def draw(self):
+        """Constantly draw the gameover screen
+        """
         self.window.blit(self.image, (180, HEIGHT // 6.75))
-        self.window.blit(self.score_text_surface, (280, 430))
+        self.display_final_score()
         self.retry.draw(self.window)
         self.exit.draw(self.window)
 
