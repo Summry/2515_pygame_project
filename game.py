@@ -1,5 +1,4 @@
 import pygame
-pygame.init()
 from screens import WelcomeScreen, GameScreen, GameOverScreen
 from globalvars import HEIGHT, WIDTH
 
