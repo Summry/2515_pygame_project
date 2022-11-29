@@ -41,28 +41,28 @@ class Score:
         with open(self.filename, "w") as fp:
             json.dump(self.score_list, fp)
 
-    def add_score(self, id, score):
+    def add_score(self, username, score):
         """Method to add a score
 
         Args:
-            id (str): game score id
+            username (str): username of the player
             score (int): the score integer
 
         Raises:
-            ValueError: if id is not str or score is not int
-            ValueError: is id is empty str
+            ValueError: if username is not str or score is not int
+            ValueError: is username is empty str
 
         Returns:
             boolean: true when score added successfully
         """
 
-        if (type(id) is not str or type(score) is not int):
+        if (type(username) is not str or type(score) is not int):
             raise ValueError
-        if id == "":
+        if username == "":
             raise ValueError
 
         score_dict = {
-            "id": id,
+            "username": username,
             "score": score
         }
 

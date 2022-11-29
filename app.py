@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request
 from models.score import Score
-import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "asdflkjhasdflkjhasdflkjh"
@@ -39,18 +38,19 @@ def add_score():
 
     """
     data = {
-        "id": some string,
-        "score": some integer
+        "username": string,
+        "score": integer
     }
     """
 
     if not data:
         return "Oops, game data not found.", 404
-    if "id" not in data.keys() or "score" not in data.keys():
+    if "username" not in data.keys() or "score" not in data.keys():
         return "Invalid data.", 400
 
     try:
-        scores.add_score(data["id"], data["score"])
+        print(data)
+        scores.add_score(data["username"], data["score"])
         scores.save()
         return "Score added.", 301
     except ValueError:

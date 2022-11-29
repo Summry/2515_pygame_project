@@ -1,5 +1,5 @@
 import pygame
-from screens import WelcomeScreen, GameScreen, GameOverScreen
+from screens import WelcomeScreen, GameScreen, GameOverScreen, SignInScreen
 from globalvars import HEIGHT, WIDTH
 
 
@@ -17,6 +17,7 @@ class Game:
 
         # These are the available screens
         screens = {
+            "signin": SignInScreen,
             "welcome": WelcomeScreen,
             "game": GameScreen,
             "game_over": GameOverScreen,
@@ -24,8 +25,12 @@ class Game:
 
         # Start the loop
         running = True
-        current_screen = "welcome"
+        current_screen = "signin"
         final_score = None
+        username = None
+        """
+        username = "nazira"
+        """
         while running:
 
             # Play music
@@ -38,19 +43,25 @@ class Game:
 
             # Create a new screen object, "connected" to the window
             if current_screen == "game_over":
-                screen = screen_class(self.window, final_score)
+                screen = screen_class(self.window, final_score, username)
             else:
                 screen = screen_class(self.window)
 
             # Run the screen
             screen.run()
 
+            # Keep the final score
             if screen.final_score is not None:
                 final_score = screen.final_score
+
+            # Keep the username from signin screen
+            if screen.username is not None:
+                username = screen.username
 
             # When the `run` method stops, we should have a `next_screen` setup
             if screen.next_screen is False:
                 running = False
+
             # Switch to the next screen
             current_screen = screen.next_screen
     
@@ -62,6 +73,8 @@ class Game:
         """
         if (screen):
             pygame.mixer.music.load(f"audio/{screen}.mp3")
+            if (screen == "signin"):
+                pygame.mixer.music.set_volume(0.02)
             if (screen == "game"):
                 pygame.mixer.music.set_volume(0.07)
             pygame.mixer.music.play(-1)

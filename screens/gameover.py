@@ -1,5 +1,4 @@
 import pygame
-import uuid
 import requests
 from .base import BaseScreen
 from components.button import Button
@@ -11,9 +10,10 @@ class GameOverScreen(BaseScreen):
     Args:
         BaseScreen (screen): parent class of the GameOverScreen
     """
-    def __init__(self, window, final_score) -> None:
+    def __init__(self, window, final_score, username) -> None:
         super().__init__(window)
         self.final_score = final_score
+        self.username = username
         image = pygame.image.load("images/game_over.png").convert_alpha()
         self.image = pygame.transform.scale(image, (WIDTH // 1.6, HEIGHT // 3.6))
         self.retry = Button(pygame.image.load("images/retry.png").convert_alpha(), WIDTH // 4, HEIGHT // 1.8, 0.66)
@@ -32,11 +32,6 @@ class GameOverScreen(BaseScreen):
         self.display_final_score()
         self.retry.draw(self.window)
         self.exit.draw(self.window)
-
-        # If score has not been recorded yet
-        if self.score_recorded == False:
-            self.score_recorded = True # Score has been recorded
-            self.upload_score() # Upload the score
 
     def manage_event(self, event):
         """Event manager
@@ -58,14 +53,16 @@ class GameOverScreen(BaseScreen):
         """Method to get the score object and posts it to url
         """
         flask_url = "http://127.0.0.1:5000/add"
-        id = str(uuid.uuid4())
 
         game = {
-            "id": id, 
+            "username": self.username, 
             "score": self.final_score
         }
 
         requests.post(flask_url, json=game)
 
     def update(self):
-        pass
+        # If score has not been recorded yet
+        if self.score_recorded == False:
+            self.score_recorded = True # Score has been recorded
+            self.upload_score() # Upload the score

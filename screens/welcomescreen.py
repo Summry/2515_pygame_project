@@ -15,6 +15,7 @@ class WelcomeScreen(BaseScreen):
         self.frames = []
         self.frame_index = 0
         self.final_score = None
+        self.username = None
         self.frame_interval = pygame.time.get_ticks()
 
         num_of_files = len(os.listdir("images/player/stand"))
