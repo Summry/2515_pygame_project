@@ -51,6 +51,8 @@ python app.py
 python game.py
 ```
 
+3. Enter a username
+
 Gain points by jumping or shooting zombies.
 
 ---
@@ -119,4 +121,4 @@ Gain points by jumping or shooting zombies.
 
 ---
 
-# [<ins>**Go to top**</ins>](#caustic-the-zombie-shooter)
+# [<ins>**Go to top**</ins>](#caustic-jumper-and-zombie-shooter)
