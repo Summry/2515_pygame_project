@@ -1,1 +1,12 @@
-[{"username": "tim", "score": 1567}, {"username": "lalalalala", "score": 642}, {"username": "nazira", "score": 411}, {"username": "hello1", "score": 5}, {"username": "hello2", "score": 5}, {"username": "hello3", "score": 5}, {"username": "lalalalala", "score": 945}]
+[
+    {
+        "username": "tim",
+        "score": 1567,
+        "date": "2019-12-11 10:58:37.039404"
+    },
+    {
+        "username": "lalalalala",
+        "score": 642,
+        "date": "2020-12-12 10:58:37.039404"
+    }
+]

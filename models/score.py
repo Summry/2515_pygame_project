@@ -41,7 +41,7 @@ class Score:
         with open(self.filename, "w") as fp:
             json.dump(self.score_list, fp)
 
-    def add_score(self, username, score):
+    def add_score(self, username, score, date):
         """Method to add a score
 
         Args:
@@ -56,14 +56,15 @@ class Score:
             boolean: true when score added successfully
         """
 
-        if (type(username) is not str or type(score) is not int):
+        if (type(username) is not str or type(score) is not int or type(date) is not str):
             raise ValueError
         if username == "":
             raise ValueError
 
         score_dict = {
             "username": username,
-            "score": score
+            "score": score,
+            "date": date
         }
 
         self.score_list.append(score_dict)

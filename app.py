@@ -45,12 +45,11 @@ def add_score():
 
     if not data:
         return "Oops, game data not found.", 404
-    if "username" not in data.keys() or "score" not in data.keys():
+    if "username" not in data.keys() or "score" not in data.keys() or "date" not in data.keys():
         return "Invalid data.", 400
 
     try:
-        print(data)
-        scores.add_score(data["username"], data["score"])
+        scores.add_score(data["username"], data["score"], data["date"])
         scores.save()
         return "Score added.", 301
     except ValueError:

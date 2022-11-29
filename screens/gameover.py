@@ -1,5 +1,6 @@
 import pygame
 import requests
+from datetime import datetime
 from .base import BaseScreen
 from components.button import Button
 from globalvars import HEIGHT, WIDTH
@@ -56,7 +57,8 @@ class GameOverScreen(BaseScreen):
 
         game = {
             "username": self.username, 
-            "score": self.final_score
+            "score": self.final_score,
+            "date": str(datetime.now())
         }
 
         requests.post(flask_url, json=game)
