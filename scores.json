@@ -1,11 +1,15 @@
 [
   {
+    "id": "c303282d-f2e6-46ca-a04a-35d3d873712d",
     "username": "tim",
+    "password": "P4ssw0rd",
     "score": 1567,
     "date": "2019-12-11 10:58:37.039404"
   },
   {
+    "id": "c303282d-f2e6-46ca-a04a-asdfasdfasdf",
     "username": "lalalalala",
+    "password": "P4ssw0rd",
     "score": 642,
     "date": "2020-12-12 10:58:37.039404"
   }
