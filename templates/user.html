@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block links %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@500&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block style %}
+<style>
+  * {
+    font-family: 'Merriweather Sans', sans-serif;
+  }
+
+  .fx-separate {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 30px 10px 30px;
+  }
+</style>
+{% endblock %}
+
+{% block title %}Caustic: Jumper and Zombie Shooter{% endblock %}
+
+{% block content %}
+<div class="container my-2 py-2">
+  {% if scores|length > 0 %}
+  <div class="title-header text-light bg-dark" style="color: white">
+    <h1 class="fx-separate">
+      Scoreboard - Caustic: Jumper and Zombie Shooter
+      <form action="/logout"><Button type="submit" class="btn btn-danger btn-lg">Logout</Button></form>
+    </h1>
+  </div>
+  <table class="table table-striped table-hover table-dark">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">Rank</th>
+        <th scope="col">Username</th>
+        <th scope="col">Score</th>
+        <th scope="col">Date</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in range(0, scores|length) %}
+      <tr>
+        <td scope="col">{{i + 1}}</td>
+        <td scope="col">{{scores[i].username}}</td>
+        <td scope="col">{{scores[i].score}}</td>
+        <td scope="col">{{scores[i].date}}</td>
+
+        <form action="/delete" method="POST">
+          <th><Button type="submit" class="btn btn-danger btn-sm">Delete <i class="fa fa-trash"></i></th>
+        </form>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="title-header" style="background-color: lightgray;">
+    <h1>Unfortunately, there are no games played. Come back next time~</h1>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
