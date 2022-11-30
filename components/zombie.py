@@ -1,6 +1,7 @@
 import pygame
 import os
 import random
+from globalvars import HEIGHT, WIDTH
 
 class Zombie(pygame.sprite.Sprite):
     """zombie class
@@ -43,9 +44,9 @@ class Zombie(pygame.sprite.Sprite):
 
         # Determine which side the zombie will spawn
         if self.spawn_side == 0:
-            self.rect.center = (0, 310)
+            self.rect.center = (0, HEIGHT - 230)
         if self.spawn_side == 1:
-            self.rect.center = (960, 310)
+            self.rect.center = (WIDTH, HEIGHT - 230)
 
     def move(self):
         """Movement method for the zombie
