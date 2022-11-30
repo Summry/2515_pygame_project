@@ -13,27 +13,28 @@ class GameScreen(BaseScreen):
     """
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
+        self.final_score = None
+        self.username = None
+
         self.start_time = pygame.time.get_ticks() // 1000
 
         # Manage player timer
         self.counter = 300
         pygame.time.set_timer(pygame.USEREVENT, 1000) # Set the time counter
 
-        # Create the player
+        # Create the player and manage movements
         self.player = Player(WIDTH // 2, 350, 0.2, speed=5)
         self.move_left = False
         self.move_right = False
         self.shoot = False
-        self.score = -1
-        self.final_score = None
-        self.username = None
+        self.score = -1 # Start with -1 to avoid the first jump = 0 score
 
         # Create zombie group and spawn timer
         self.zombie_timer = pygame.USEREVENT + 1
         pygame.time.set_timer(self.zombie_timer, 1500) # Every 1.5s, a zombie will spawn
         self.zombie_group = pygame.sprite.Group()
 
-        # Create player sprite
+        # Create player group
         self.player_group = pygame.sprite.Group() # For collision and methods
         self.player_group.add(self.player)
 
@@ -65,24 +66,29 @@ class GameScreen(BaseScreen):
             # Shoot bullets
             if self.shoot:
                 self.player.shoot()
+
             if self.player.in_the_air:
                 # Add score for jumping
                 self.score += 1
                 # Jump animation
                 self.player.update_action(2)
+
             elif self.move_left or self.move_right:
                 # Run animation
                 self.player.update_action(1)
+
             else:
                 # Stand animation
                 self.player.update_action(0)
 
             self.player.move(self.move_left, self.move_right)
         
+        # Draw the player and the zombie
         self.player.draw(self.window)
         self.zombie_group.update()
         self.zombie_group.draw(self.window)
         
+        # Draw the score, the health point, and the timer
         self.display_score()
         self.display_health()
         self.display_timer()
@@ -99,6 +105,7 @@ class GameScreen(BaseScreen):
             take_dmg.play()
             self.player.health -= 1
         
+        # Go to game over screen if player dies
         if self.player.health == 0:
             self.start_time += pygame.time.get_ticks() // 1000
             # Move to game over screen
@@ -106,6 +113,7 @@ class GameScreen(BaseScreen):
             self.next_screen = "game_over"
             self.running = False
         
+        # Check collision - kill zombie sprite on bullet collision
         if pygame.sprite.groupcollide(self.zombie_group, self.player.bullet_group, 1, 1).keys():
             zombie_sound = pygame.mixer.Sound("audio/zombie.mp3")
             zombie_sound.set_volume(0.5)
@@ -118,6 +126,8 @@ class GameScreen(BaseScreen):
         Args:
             event (event): a pygame event
         """
+
+        # Decrease the game timer
         if event.type == pygame.USEREVENT:
             if self.counter > 0:
                 self.counter -= 1
@@ -126,9 +136,11 @@ class GameScreen(BaseScreen):
                 self.next_screen = "game_over"
                 self.running = False
 
+        # Spawn zombie every 1.5s and add it to the zombie group
         if event.type == self.zombie_timer:
             self.zombie_group.add(Zombie(0.3))
 
+        # Manage player movement upon pressing the keys
         if event.type == pygame.KEYDOWN:
             # If player presses left key
             if event.key == pygame.K_a:
@@ -143,6 +155,7 @@ class GameScreen(BaseScreen):
             if event.key == pygame.K_SPACE and self.player.is_alive:
                 self.player.jump = True
     
+        # Manage player movement upon lifting the keys
         if event.type == pygame.KEYUP:
             # If player lets go of left key
             if event.key == pygame.K_a:
