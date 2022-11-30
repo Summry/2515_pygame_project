@@ -5,16 +5,20 @@ from globalvars import HEIGHT, WIDTH
 class SignInScreen(BaseScreen):
     def __init__(self, window) -> None:
         super().__init__(window)
+        self.final_score = None
 
+        # Display the username message and frame
         self.username = ""
         self.username_msg = pygame.image.load("images/username.png").convert_alpha()
         userframe = pygame.image.load("images/username-frame.png").convert_alpha()
         self.username_frame = pygame.transform.scale(userframe, (330, 100))
+
+        # Display the username font
         self.username_font = pygame.font.Font("fonts/minecraft.ttf", 30)
         self.empty_username = False
-        self.final_score = None
 
     def draw(self):
+        """Method to draw the username frame and message"""
         self.window.blit(self.username_msg, (90, 180))
         self.username_text_surface = self.username_font.render(f"{self.username}", False, "Black")
         self.window.blit(self.username_frame, (330, 290))
@@ -39,7 +43,7 @@ class SignInScreen(BaseScreen):
                 self.username = self.username[:-1]
 
             # Submit non-empty username
-            elif event.key == pygame.K_RETURN and self.username != "":
+            elif event.key == pygame.K_RETURN and self.username.replace(" ", "") != "":
                 self.next_screen = "welcome"
                 self.running = False
 
@@ -47,9 +51,10 @@ class SignInScreen(BaseScreen):
             elif event.key == pygame.K_RETURN and self.username == "":
                 self.empty_username = True
 
+            # Make sure the username is not longer than 10 characters
             elif len(self.username) > 9:
                 self.username = self.username
 
             # Type username
-            else:
+            elif event.unicode.isalnum():
                 self.username += event.unicode
