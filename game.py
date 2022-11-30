@@ -26,11 +26,12 @@ class Game:
         # Start the loop
         running = True
         current_screen = "signin"
-        final_score = None
+
+        # Initialize game data
         username = None
-        """
-        username = "nazira"
-        """
+        password = None
+        final_score = None
+
         while running:
 
             # Play music
@@ -43,7 +44,7 @@ class Game:
 
             # Create a new screen object, "connected" to the window
             if current_screen == "game_over":
-                screen = screen_class(self.window, final_score, username)
+                screen = screen_class(self.window, final_score, username, password)
             else:
                 screen = screen_class(self.window)
 
@@ -57,6 +58,10 @@ class Game:
             # Keep the username from signin screen
             if screen.username is not None:
                 username = screen.username
+
+            # Keep the password from signin screen
+            if screen.password is not None:
+                password = screen.password
 
             # When the `run` method stops, we should have a `next_screen` setup
             if screen.next_screen is False:
