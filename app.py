@@ -118,7 +118,7 @@ def logout():
     return redirect(url_for("home")), 301
 
 @app.route("/delete", methods=["POST"])
-def delete_score():
+def delete():
     """
     Route to delete a game score
 
