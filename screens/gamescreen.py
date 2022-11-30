@@ -13,8 +13,11 @@ class GameScreen(BaseScreen):
     """
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self.final_score = None
+        
+        # Keep username and final score as None - nothing to do with them here
         self.username = None
+        self.password = None
+        self.final_score = None
 
         self.start_time = pygame.time.get_ticks() // 1000
 

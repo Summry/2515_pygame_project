@@ -15,6 +15,7 @@ class WelcomeScreen(BaseScreen):
 
         # Keep username and final score as None - nothing to do with them here
         self.username = None
+        self.password = None
         self.final_score = None
 
         # setting up the frames and animation index of the character
