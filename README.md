@@ -122,7 +122,7 @@ Gain points by jumping or shooting zombies.
 
 ## <ins>**View the Scoreboard**</ins>
 
-![scoreboard](images/readme/leaderboard.png "scoreboard")
+![scoreboard](images/readme/leaderboard1.png "scoreboard")
 
 ---
 
