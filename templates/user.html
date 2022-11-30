@@ -51,10 +51,16 @@
         <td scope="col">{{scores[i].username}}</td>
         <td scope="col">{{scores[i].score}}</td>
         <td scope="col">{{scores[i].date}}</td>
-
-        <form action="/delete" method="POST">
-          <th><Button type="submit" class="btn btn-danger btn-sm">Delete <i class="fa fa-trash"></i></th>
-        </form>
+        {% if scores[i].username == session.username %}
+        <td scope="col">
+          <form action="/delete" method="POST">
+            <input type="hidden" name="id" value="{{scores[i].id}}">
+            <button type="submit" class="btn btn-danger btn-sm">Delete <i class="fa fa-trash"></i></button>
+          </form>
+        </td>
+        {% else %}
+        <td scope="col"></td>
+        {% endif %}
       </tr>
       {% endfor %}
     </tbody>
