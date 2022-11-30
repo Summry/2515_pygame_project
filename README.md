@@ -23,6 +23,7 @@ Nazira Fakhrurradi (A01279940) - Set 2B
   - [**Movement**](#movement)
   - [**Shoot Bullet**](#shoot-bullet)
 - [**Game Screenshots**](#game-screenshots)
+  - [**Sign in Screen**](#sign-in-screen)
   - [**Welcome Screen**](#welcome-screen)
   - [**Game Screen**](#game-screen)
   - [**End Screen**](#end-screen)
@@ -86,6 +87,10 @@ Gain points by jumping or shooting zombies.
 ---
 
 # <ins>**Game Screenshots**</ins>
+
+## <ins>**Sign in Screen**</ins>
+
+![signin screen](images/readme/signin.png "signin screen")
 
 ## <ins>**Welcome Screen**</ins>
 
