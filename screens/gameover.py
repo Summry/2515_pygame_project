@@ -13,15 +13,22 @@ class GameOverScreen(BaseScreen):
     """
     def __init__(self, window, final_score, username) -> None:
         super().__init__(window)
+
+        # Finally assign the final score and username to be stored
         self.final_score = final_score
         self.username = username
+        self.score_recorded = False
+
+        # Load the image
         image = pygame.image.load("images/game_over.png").convert_alpha()
         self.image = pygame.transform.scale(image, (WIDTH // 1.6, HEIGHT // 3.6))
+
+        # Create the buttons
         self.retry = Button(pygame.image.load("images/retry.png").convert_alpha(), WIDTH // 4, HEIGHT // 1.8, 0.66)
         self.exit = Button(pygame.image.load("images/red_exit.png").convert_alpha(), WIDTH // 1.92, HEIGHT // 1.8, 0.64)
-        self.score_recorded = False
         
     def display_final_score(self):
+        """Method to display the final score"""
         score_font = pygame.font.Font("fonts/minecraft.ttf", 50)
         score_text_surface = score_font.render(f"Your score: {self.final_score}", False, "Black")
         self.window.blit(score_text_surface, (280, 430))
@@ -35,11 +42,13 @@ class GameOverScreen(BaseScreen):
         self.exit.draw(self.window)
 
     def manage_event(self, event):
-        """Event manager
+        """Manage the events of the gameover screen
 
         Args:
             event (pygame event): a pygame event
         """
+
+        # If the user clicks on the retry button, go back to the game screen
         if self.retry.draw(self.window):
             button_sound = pygame.mixer.Sound("audio/button-click.mp3")
             button_sound.set_volume(0.3)
@@ -47,20 +56,24 @@ class GameOverScreen(BaseScreen):
             self.final_score = 0
             self.next_screen = "game"
             self.running = False
+
+        # If the user clicks on the exit button
         if self.exit.draw(self.window):
             self.running = False
 
     def upload_score(self):
         """Method to get the score object and posts it to url
         """
-        flask_url = "http://127.0.0.1:5000/add"
+        flask_url = "http://127.0.0.1:5000/add" # Reference to the flask server
 
+        # Create the game object
         game = {
             "username": self.username, 
             "score": self.final_score,
             "date": str(datetime.now())
         }
 
+        # Post the game object to the url
         requests.post(flask_url, json=game)
 
     def update(self):
