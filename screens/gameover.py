@@ -11,12 +11,13 @@ class GameOverScreen(BaseScreen):
     Args:
         BaseScreen (screen): parent class of the GameOverScreen
     """
-    def __init__(self, window, final_score, username) -> None:
+    def __init__(self, window, final_score, username, password) -> None:
         super().__init__(window)
 
         # Finally assign the final score and username to be stored
-        self.final_score = final_score
         self.username = username
+        self.password = password
+        self.final_score = final_score
         self.score_recorded = False
 
         # Load the image
@@ -68,7 +69,8 @@ class GameOverScreen(BaseScreen):
 
         # Create the game object
         game = {
-            "username": self.username, 
+            "username": self.username,
+            "password": self.password, # Exclude password when getting scores
             "score": self.final_score,
             "date": str(datetime.now())
         }
