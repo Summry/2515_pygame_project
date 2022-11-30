@@ -13,7 +13,7 @@ class SignInScreen(BaseScreen):
         self.check_username = False
 
         # Load username message and frame images
-        self.username_msg = pygame.image.load("images/username.png").convert_alpha()
+        self.signin_msg = pygame.image.load("images/signin.png").convert_alpha()
         input_frame_image = pygame.image.load("images/username-frame.png").convert_alpha()
         self.input_frame = pygame.transform.scale(input_frame_image, (330, 100))
 
@@ -26,7 +26,7 @@ class SignInScreen(BaseScreen):
 
     def draw(self):
         """Method to draw the username frame and message"""
-        self.window.blit(self.username_msg, (250, 180))
+        self.window.blit(self.signin_msg, (250, 180))
 
         # Display the username information
         username_text_surface = self.username_font.render(f"{self.username}", False, "Black")
