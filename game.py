@@ -75,11 +75,12 @@ class Game:
             pygame.mixer.music.load(f"audio/{screen}.mp3")
             if (screen == "signin"):
                 pygame.mixer.music.set_volume(0.02)
-            if (screen == "game"):
-                pygame.mixer.music.set_volume(0.07)
-            pygame.mixer.music.play(-1)
-            if (screen == "game_over"):
-                pygame.mixer.music.set_volume(1.5)
+            elif (screen == "welcome"):
+                pygame.mixer.music.set_volume(0.5)
+            elif (screen == "game"):
+                pygame.mixer.music.set_volume(0.02)
+            elif (screen == "game_over"):
+                pygame.mixer.music.set_volume(1.1)
             pygame.mixer.music.play(-1)
         else:
             pygame.mixer.music.stop()
