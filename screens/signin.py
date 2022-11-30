@@ -26,7 +26,7 @@ class SignInScreen(BaseScreen):
 
     def draw(self):
         """Method to draw the username frame and message"""
-        self.window.blit(self.username_msg, (90, 180))
+        self.window.blit(self.username_msg, (250, 180))
 
         # Display the username information
         username_text_surface = self.username_font.render(f"{self.username}", False, "Black")
