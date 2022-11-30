@@ -1,4 +1,5 @@
 import pygame
+from globalvars import WIDTH
 
 class Bullet(pygame.sprite.Sprite):
     """Bullet class
@@ -8,7 +9,6 @@ class Bullet(pygame.sprite.Sprite):
     """
     def __init__(self, x, y, direction, scale=1):
         pygame.sprite.Sprite.__init__(self)
-        self.animation_index = 0
         self.update_interval = pygame.time.get_ticks()
         
         # Get all images for the bullet
@@ -25,5 +25,5 @@ class Bullet(pygame.sprite.Sprite):
         """
         self.rect.x += (self.direction * self.speed)
         # Delete bullets that go off screen
-        if self.rect.right < 0 or self.rect.left > 960:
+        if self.rect.right < 0 or self.rect.left > WIDTH:
             self.kill()
