@@ -22,7 +22,7 @@ class Score:
     def __len__(self):
         return len(self.score_list)
 
-    def get_scores(self):
+    def get_scores(self, id=None):
         """Method to get all scores
 
         Returns:
@@ -30,8 +30,13 @@ class Score:
         """
         scores = []
 
-        for score in self.score_list:
-            scores.append(score)
+        if id is None:
+            for score in self.score_list:
+                scores.append(score)
+        else:
+            for score in self.score_list:
+                if score["id"] == id:
+                    scores.append(score)
 
         return scores
 
@@ -56,8 +61,8 @@ class Score:
             raise ValueError
 
         for score in self.score_list:
-            if score["username"] == user:
-                return True
+            if score["username"] == user and score["password"] == password:
+                return score
 
         return False
 
