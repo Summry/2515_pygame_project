@@ -52,9 +52,11 @@ python app.py
 python game.py
 ```
 
-3. Enter a username
+3. Enter a username and press `ENTER`
 
-Gain points by jumping or shooting zombies.
+4. Enter a password and press `ENTER`
+
+> **Objective:** gain points by jumping or shooting zombies. Be careful though, you only have 3 lives. Constantly jumping may cause you to lose space. Each bullet reloads after a certain amount of time. So, shoot wisely.
 
 ---
 
