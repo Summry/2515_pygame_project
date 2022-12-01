@@ -41,18 +41,18 @@ def add_score():
         return "Oops, game data not found.", 404
     if "username" not in data.keys() or "score" not in data.keys() or "date" not in data.keys():
         return "Invalid data.", 400
-    if "id" in data.keys() or "password" in data.keys():
+    if "id" not in data.keys() or "password" not in data.keys():
         return "Invalid data.", 400
 
     try:
-        scores.add_score(data["username"], data["score"], data["date"])
+        scores.add_score(data["id"], data["username"], data["password"], data["score"], data["date"])
         scores.save()
         return "Score added.", 200
     except ValueError:
         return "Invalid data.", 400
 
-@app.route("/user/<username>")
-def user(username):
+@app.route("/user/<id>")
+def user(id):
     """User page route
 
     Methods:
@@ -61,13 +61,13 @@ def user(username):
     Returns:
         Document or string: a page and a status code
     """
-    if "username" not in session:
+    if "id" not in session:
         flash("You must be logged in to access this page.")
         return redirect(url_for("login")), 301
 
     try:
         file = Score("scores.json")
-        scores = file.get_scores()
+        scores = file.get_scores(id)
         return render_template("user.html", scores=scores), 200
     except ValueError:
         return "Invalid data", 400
@@ -88,9 +88,10 @@ def login():
             # Get the username and password from the form
             data = request.form
             scores = Score("scores.json")
-            if scores.find_user(data["username"], data["password"]):
-                session["username"] = data["username"]
-                return redirect(url_for("user", username=session["username"])), 301
+            user = scores.find_user(data["username"], data["password"])
+            if user:
+                session["id"] = user["id"]
+                return redirect(url_for("user", id=session["id"])), 301
             else:
                 flash("Invalid username or password.")
                 return redirect(url_for("login")), 301
@@ -110,11 +111,11 @@ def logout():
     Returns:
         A document with a status code
     """
-    if "username" not in session:
+    if "id" not in session:
         flash("You must be logged in to access this page.")
         return redirect(url_for("login")), 301
 
-    session.pop("username", None)
+    session.pop("id", None)
     return redirect(url_for("home")), 301
 
 @app.route("/delete", methods=["POST"])
@@ -128,7 +129,7 @@ def delete():
     Returns:
         A document with a status code
     """
-    if "username" not in session:
+    if "id" not in session:
         flash("You must be logged in to access this page.")
         return redirect(url_for("login")), 301
 
@@ -139,7 +140,7 @@ def delete():
     try:
         scores.delete_score(data["id"])
         scores.save()
-        return redirect(url_for("user", username=session["username"])), 301
+        return redirect(url_for("user", id=session["id"])), 301
     except ValueError:
         return "Invalid data.", 400
 
