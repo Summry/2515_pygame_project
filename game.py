@@ -1,6 +1,7 @@
 import pygame
 from screens import WelcomeScreen, GameScreen, GameOverScreen, SignInScreen
 from globalvars import HEIGHT, WIDTH
+import uuid
 
 
 class Game:
@@ -27,7 +28,8 @@ class Game:
         running = True
         current_screen = "signin"
 
-        # Initialize game data
+        # Initialize game data before welcome screen
+        user_id = str(uuid.uuid4())
         username = None
         password = None
         final_score = None
@@ -44,7 +46,7 @@ class Game:
 
             # Create a new screen object, "connected" to the window
             if current_screen == "game_over":
-                screen = screen_class(self.window, final_score, username, password)
+                screen = screen_class(self.window, user_id, final_score, username, password)
             else:
                 screen = screen_class(self.window)
 
