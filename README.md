@@ -122,7 +122,17 @@ Gain points by jumping or shooting zombies.
 
 ## <ins>**View the Scoreboard**</ins>
 
-![scoreboard](images/readme/leaderboard1.png "scoreboard")
+- Homepage
+
+![scoreboard](images/readme/leaderboard.png "scoreboard")
+
+- Login to be able to delete your scores
+
+![login](images/readme/login.png "login")
+
+- Once logged in, you can delete your scores
+
+![delete](images/readme/leaderboard1.png "delete")
 
 ---
 
