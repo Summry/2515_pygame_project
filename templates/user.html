@@ -51,7 +51,7 @@
         <td scope="col">{{scores[i].username}}</td>
         <td scope="col">{{scores[i].score}}</td>
         <td scope="col">{{scores[i].date}}</td>
-        {% if scores[i].username == session.username %}
+        {% if scores[i].id == session.id %}
         <td scope="col">
           <form action="/delete" method="POST">
             <input type="hidden" name="id" value="{{scores[i].id}}">
@@ -66,8 +66,11 @@
     </tbody>
   </table>
   {% else %}
-  <div class="title-header" style="background-color: lightgray;">
-    <h1>Unfortunately, there are no games played. Come back next time~</h1>
+  <div class="title-header text-light bg-dark" style="color: white">
+    <h3 class="fx-separate text-sm">
+      Unfortunately, there are no games played. Come back next time~
+      <form action="/logout"><Button type="submit" class="btn btn-danger btn-lg">Logout</Button></form>
+    </h3>
   </div>
   {% endif %}
 </div>
