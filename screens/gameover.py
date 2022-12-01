@@ -4,7 +4,6 @@ from datetime import datetime
 from .base import BaseScreen
 from components.button import Button
 from globalvars import HEIGHT, WIDTH
-import uuid
 
 class GameOverScreen(BaseScreen):
     """Game Over Screen
@@ -12,10 +11,11 @@ class GameOverScreen(BaseScreen):
     Args:
         BaseScreen (screen): parent class of the GameOverScreen
     """
-    def __init__(self, window, final_score, username, password) -> None:
+    def __init__(self, window, id, final_score, username, password) -> None:
         super().__init__(window)
 
         # Finally assign the final score and username to be stored
+        self.id = id
         self.username = username
         self.password = password
         self.final_score = final_score
@@ -68,13 +68,11 @@ class GameOverScreen(BaseScreen):
         """
         flask_url = "http://127.0.0.1:5000/add" # Reference to the flask server
 
-        id = str(uuid.uuid4()) # Generate a unique id
-
         # Create the game object
         game = {
-            "id": id,
+            "id": self.id,
             "username": self.username,
-            "password": self.password, # Exclude password when getting scores
+            "password": self.password,
             "score": self.final_score,
             "date": str(datetime.now())
         }
