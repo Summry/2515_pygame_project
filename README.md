@@ -36,6 +36,12 @@ Nazira Fakhrurradi (A01279940) - Set 2B
 
 Clone the repo: `git clone https://github.com/Summry/2515_pygame_project.git`
 
+Install the dependencies:
+
+```
+pip install -r requirements.txt
+```
+
 ---
 
 # <ins>**How to Play**</ins>
