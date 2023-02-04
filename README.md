@@ -1,14 +1,9 @@
 # <ins>**Caustic: Jumper and Zombie Shooter**</ins>
 
-A pygame project for 2515 class.
+A fun and simple project using Pygame and Flask.
 
 In this game, you will shoot as many zombies as you can, and you will jump as many times as you can. Don't die. No further description.
 
----
-
-# <ins>**Members**</ins>
-
-Nazira Fakhrurradi (A01279940) - Set 2B
 
 ---
 
@@ -34,7 +29,18 @@ Nazira Fakhrurradi (A01279940) - Set 2B
 
 # <ins>**Installation**</ins>
 
-Clone the repo: `git clone https://github.com/Summry/2515_pygame_project.git`
+Clone the repo: `git clone https://github.com/Summry/Zombie-Shooter.git`
+
+Create a virtual environment.
+```
+python3 -m venv venv
+```
+
+Activate the virtual environment.
+```
+Windows: ./venv/Scripts/activate
+Linux: source ./venv/bin/activate
+```
 
 Install the dependencies:
 
